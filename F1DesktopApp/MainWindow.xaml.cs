@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,6 +14,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Net.Sockets;
+using LiveCharts;
+using LiveCharts.Defaults;
+using LiveCharts.Wpf;
+
 
 namespace F1DesktopApp
 {
@@ -23,14 +28,44 @@ namespace F1DesktopApp
     {
         private readonly string _port;
         private readonly string ipAddress;
-        private string str_x;
-        private string str_y;
+        private string str_x = "test";
+        private string str_y = "test";
+        private double _value;
+
+        public double Value
+        {
+            get { return _value; }
+            set
+            {
+                _value = value;
+                OnPropertyChanged("Value");
+            }
+        }
 
         public MainWindow()
         {
             InitializeComponent();
-            UdpClient udpClient = new UdpClient();
-            
+
+            Value = 160;
+
+            DataContext = this;
+
+            //UdpClient udpClient = new UdpClient();
+
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void ChangeValueOnClick(object sender, RoutedEventArgs e)
+        {
+            Value = new Random().Next(50, 250);
+        }
+
+
+        protected virtual void OnPropertyChanged(string propertyName = null)
+        {
+            if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+
     }
 }

@@ -5,15 +5,33 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:F1DesktopApp"
+        xmlns:local="clr-namespace:F1DesktopApp" xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid x:Name="MainGrid" Background="#FF3F3F46">
         <TabControl>
             <TabItem Header="Main">
                 <Grid Background="#FF3F3F46">
-                    <GroupBox Header="1st dataset" Margin="10,10,497,10"/>
-                    <GroupBox Header="2nd dataset" Margin="502,10,5,10" Content=""/>
+                    <GroupBox Header="1st dataset" Margin="10,10,497,10" Foreground="White">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Button Margin="10" Click="ChangeValueOnClick">Update</Button>
+                            <lvc:AngularGauge Grid.Row="1" Value="{Binding Value}" FromValue="50" ToValue="250" 
+                          LabelsStep="50" TicksStep="25" Wedge="300"
+                          TicksForeground="White" Foreground="White" 
+                          FontWeight="Bold" FontSize="16"
+                          SectionsInnerRadius=".5">
+                                <lvc:AngularGauge.Sections>
+                                    <lvc:AngularSection FromValue="50" ToValue="200" Fill="#F8A725"/>
+                                    <lvc:AngularSection FromValue="200" ToValue="250" Fill="#FF3939"/>
+                                </lvc:AngularGauge.Sections>
+                            </lvc:AngularGauge>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="2nd dataset" Margin="502,10,5,10" Content="" Foreground="White"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Secondary">
